@@ -1,17 +1,37 @@
 <template>
   <div id="dashboard" class="row">
-    <div class="col-lg-4 col-sm-6 portfolio-item" v-for="post in posts" v-bind:key="post.id">
-      <div class="card h-100">
-        <div class="card-body">
-          <h4 class="card-title">
-            <router-link v-bind:to="{ name: 'edit-post', params: { post_id: post.post_id }}" class="btn">
-                <i class="fa fa-pencil"></i>      
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Text</th>
+        <th scope="col">Image</th>
+        <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="post in posts" v-bind:key="post.id">
+            <td>
+                {{post.post_id}}
+            </td>
+            <td>
                 {{post.name}}
-            </router-link>
-          </h4>
-        </div>
-      </div>
-    </div>
+            </td>
+            <td>
+                {{post.text}}
+            </td>
+            <td>
+                <img class="img-fluid" :src="post.url" alt="">
+            </td>
+            <td>
+                <router-link v-bind:to="{ name: 'edit-post', params: { post_id: post.post_id }}" class="btn">
+                    <i class="fa fa-pencil"></i>
+                </router-link>
+            </td>
+        </tr>        
+    </tbody>
+    </table>
     <div class="fixed_bottom_btn">
       <router-link to="/new" class="btn">
         <i class="fa fa-plus"></i>
@@ -50,3 +70,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+    .img-fluid {
+        max-height: 10vh;
+    }
+</style>

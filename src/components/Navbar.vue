@@ -9,13 +9,20 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" href="/">Home</router-link>
+              <router-link to="/" class="nav-link" href="/">Главная</router-link>
             </li>            
-            <li class="nav-item" v-if="isLoggedIn"><router-link class="nav-link" to="/dashboard">Dashboard</router-link></li>
-            <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/login">Login</router-link></li>
-            <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/register">Register</router-link></li>
-            <li class="nav-item" v-if="isLoggedIn"><span class="nav-link" >{{currentUser}}</span></li>
-            <li class="nav-item" v-if="isLoggedIn"><a class="nav-link" v-on:click="logout">Logout</a></li>
+            <li class="nav-item" v-if="isLoggedIn"><router-link class="nav-link" to="/dashboard">Админ паннель</router-link></li>
+            <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/login">Воийти</router-link></li>
+            <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/register">Регистрация</router-link></li>
+            <li class="nav-item dropdown" v-if="isLoggedIn">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                <a class="dropdown-item" v-if="isLoggedIn">{{currentUser}}</a>
+                <a class="dropdown-item" v-if="isLoggedIn" v-on:click="logout">Выход</a>
+              </div>
+            </li>
           </ul>
         </div>
       </div>

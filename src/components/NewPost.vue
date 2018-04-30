@@ -17,7 +17,7 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input type="text" v-model="text" required>
+          <textarea id="txtarea" v-model="text" required></textarea>
           <label>Text</label>
         </div>
       </div>
