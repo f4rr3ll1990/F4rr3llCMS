@@ -7,6 +7,8 @@ import NewPost from '@/components/NewPost';
 import EditPost from '@/components/EditPost';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
+import SliderEdit from '@/components/SliderEdit';
+import NewSlide from '@/components/NewSlide';
 import firebase from 'firebase';
 
 Vue.use(Router);
@@ -25,6 +27,22 @@ let router = new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/slideredit',
+      name: 'Slideredit',
+      component: SliderEdit,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/newslide',
+      name: 'newslide',
+      component: NewSlide,
       meta: {
         requiresAuth: true
       }
