@@ -9,6 +9,7 @@ import Login from '@/components/Login';
 import Register from '@/components/Register';
 import SliderEdit from '@/components/SliderEdit';
 import NewSlide from '@/components/NewSlide';
+import EditSlide from '@/components/EditSlide';
 import firebase from 'firebase';
 
 Vue.use(Router);
@@ -33,7 +34,7 @@ let router = new Router({
     },
     {
       path: '/slideredit',
-      name: 'Slideredit',
+      name: 'slideredit',
       component: SliderEdit,
       meta: {
         requiresAuth: true
@@ -85,6 +86,14 @@ let router = new Router({
       component: ViewPost,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: '/editslide/:slide_id',
+      name: 'editslide',
+      component: EditSlide,
+      meta: {
+        requiresAuth: true
       }
     }
   ]

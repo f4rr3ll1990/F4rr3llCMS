@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="slide in slides" v-bind:key="slide.id">
+                <tr v-for="slide in slides" v-bind:key="slide.slide_id">
                     <td>
                         {{slide.name}}
                     </td>
@@ -25,7 +25,7 @@
                         <img class="img-fluid" :src="slide.url" alt="">
                     </td>
                     <td>
-                        <router-link v-bind:to="{ name: 'edit-slide', params: { id: slide.id }}" class="btn">
+                        <router-link v-bind:to="{ name: 'editslide', params: { slide_id: slide.slide_id }}" class="btn">
                             <i class="fa fa-pencil"></i>
                         </router-link>
                     </td>
@@ -59,7 +59,7 @@ export default {
         this.loading = false;
         querySnapshot.forEach(doc => {
           const data = {
-            id: doc.id,
+            slide_id: doc.data().slide_id,
             name: doc.data().name,
             text: doc.data().text,
             url: doc.data().url

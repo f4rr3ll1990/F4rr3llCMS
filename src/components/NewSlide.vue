@@ -5,6 +5,12 @@
     <form @submit.prevent="saveSlide" class="col s12">
       <div class="row">
         <div class="input-field col s12">
+          <input type="text" v-model="slide_id" required>
+          <label>Slide ID#</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
           <input type="text" v-model="name" required>
           <label>Name</label>
         </div>
@@ -39,6 +45,7 @@
       },
       data () {
         return {
+          slide_id: null,
           name: null,
           text: null,
           url: false
@@ -50,13 +57,14 @@
         },
         saveSlide () {
           db.collection('slides').add({
+            slide_id: this.slide_id,
             name: this.name,
             text: this.text,
             url: this.url
           })
           .then(docRef => {
             console.log('Client added: ', docRef.id)
-            this.$router.push('/')
+            this.$router.push('/slideredit')
           })
           .catch(error => {
             console.error('Error adding post: ', error)
