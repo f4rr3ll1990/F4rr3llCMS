@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="row" v-show="!loading">
+  <div id="home" class="row" v-show="showPage">
     <div class="col-sm-12">
       <carousel :scrollPerPage="true" :perPageCustom="[[480, 1]]" v-if="showSlider">
         <slide v-for="slide in slides" v-bind:key="slide.id" v-bind:style="{ backgroundImage: 'url(' + slide.url + ')' }" >
@@ -38,11 +38,16 @@ export default {
     return {
       posts: [],
       slides: [],
-      loading: true,
+      loading: 0,
+      showPage: false,
       showSlider: false
     };
   },
+  beforeCreate() {
+    
+  },
   created() {
+    NProgress.start();
     db
       .collection("posts")
       .get()
@@ -57,6 +62,9 @@ export default {
             url: doc.data().url
           };
           this.posts.push(data);
+
+          this.stateLoading();
+
         });
       });
     db
@@ -73,11 +81,21 @@ export default {
           };
           this.slides.push(data);
           this.showSlider = true;
+          this.stateLoading();          
         });
       });
   },
-  beforeMount() {
-    this.loading = false;
+  mounted() {
+    this.stateLoading();
+  },
+  methods: {
+    stateLoading() {
+      this.loading++;
+      if(this.loading == 3) {        
+        this.showPage = true;
+        NProgress.done();
+      }
+    }
   }
 };
 </script>
