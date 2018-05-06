@@ -1,6 +1,10 @@
 <template>
+<div class="container">
   <div id="dashboard" class="row">
     <div class="col-sm-10">
+        <router-link to="/new" class="btn">
+            <i class="fa fa-plus"></i> Создать пост
+        </router-link>
         <table class="table">
             <thead>
                 <tr>
@@ -36,6 +40,7 @@
     </div>
     <DashSidebar />
   </div>
+</div>
 </template>
 
 <script>

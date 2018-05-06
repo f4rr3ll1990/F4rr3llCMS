@@ -1,15 +1,17 @@
 <template>
+<div class="container">
   <div id="view-post" class="row">
     <div class="col-sm-12">
       <img class="img-fluid" v-if="url" :src="url" :alt="name">
       <h4>{{name}}</h4>
-      <p>{{text}}</p>
+      <p v-html="text"></p>
     </div>
 
-    <router-link to="/" class="btn">Back</router-link>
+    <a @click="$router.go(-1)" class="btn">Back</a>
     
 
   </div>
+</div>
 </template>
 
 <script>
@@ -47,7 +49,7 @@ export default {
     fetchData() {
       db
         .collection('posts')
-        .where('post_id', '==', this.$route.params.post_id)
+        .where('post_id', '==', to.params.post_id)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {

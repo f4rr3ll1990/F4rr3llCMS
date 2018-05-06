@@ -5,23 +5,23 @@
     <form @submit.prevent="updatePost" class="col-sm-12">
       <div class="row">
         <div class="input-group col-sm-12">
-          <input type="text" v-model="post_id" required>
+          <input type="text" v-model="name" v-on:keyup="translitFunc()" />
         </div>
       </div>
       <div class="row">
         <div class="input-group col-sm-12">
-          <input type="text" v-model="name" required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-group col-sm-12">
-          <input type="text" v-model="text" required>
+          <input type="text" v-model="text" />
         </div>
       </div>
       <div class="row">
         <div class="input-group col-sm-12">
           <FileUploader v-on:url="getUrl" />
-          <img class="img-fluid" v-if="url" :src="url" alt="">
+          <img class="img-fluid" v-if="url" :src="url" alt="" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group col-sm-12">
+          <input type="text" v-model="post_id" />
         </div>
       </div>
       <button type="submit" class="btn">Submit</button>
@@ -37,6 +37,7 @@
 <script>
   import { db } from './firebaseInit'
   import FileUploader from './FileUploader'
+  import translit from 'cyrillic-to-translit-js'
 
   export default {
     name: 'edit-post',
@@ -76,6 +77,9 @@
             this.url = doc.data().url
           })
         })
+      },
+      translitFunc() {
+        this.post_id = translit().transform(this.name, "-").toLowerCase();
       },
       getUrl (url) {
           this.url = url

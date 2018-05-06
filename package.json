@@ -12,10 +12,12 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "cyrillic-to-translit-js": "^2.1.0",
     "firebase": "^4.8.0",
     "vue": "^2.5.2",
     "vue-carousel": "^0.7.3",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-wysiwyg": "^1.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

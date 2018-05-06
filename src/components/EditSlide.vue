@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-slide">
+  <div id="edit-slide" class="container">
     <h3>Edit slide</h3>
     <div class="row">
     <form @submit.prevent="updateSlide" class="col-sm-12">

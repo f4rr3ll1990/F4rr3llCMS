@@ -1,32 +1,27 @@
 <template>
 <div class="container">
-  <div id="slideredit" class="row">
+  <div id="dashboard-categories" class="row">
     <div class="col-sm-10">
-        <router-link to="/newslide" class="btn">
-            <i class="fa fa-plus"></i> Создать слайд
+        <router-link to="/new-category" class="btn">
+            <i class="fa fa-plus"></i> Создать категорию
         </router-link>
         <table class="table">
             <thead>
                 <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Text</th>
-                <th scope="col">Image</th>
-                <th scope="col">Edit</th>
+                <th scope="col">url</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="slide in slides" v-bind:key="slide.slide_id">
+                <tr v-for="cat in categories" v-bind:key="cat.category_id">
                     <td>
-                        {{slide.name}}
+                        {{cat.name}}
                     </td>
                     <td>
-                        {{slide.text}}
+                        {{cat.category_id}}
                     </td>
                     <td>
-                        <img class="img-fluid" :src="slide.url" alt="">
-                    </td>
-                    <td>
-                        <router-link v-bind:to="{ name: 'editslide', params: { slide_id: slide.slide_id }}" class="btn">
+                        <router-link v-bind:to="{ name: 'edit-category', params: { category_id: cat.category_id }}" class="btn">
                             <i class="fa fa-pencil"></i>
                         </router-link>
                     </td>
@@ -43,30 +38,28 @@
 import { db } from "./firebaseInit";
 import DashSidebar from "./DashSidebar";
 export default {
-  name: "slideredit",
+  name: "dashboard-categories",
   components: {
       DashSidebar
   },
   data() {
     return {
-      slides: [],
+      categories: [],
       loading: true
     };
   },
   created() {
     db
-      .collection("slides")
+      .collection("categories")
       .get()
       .then(querySnapshot => {
         this.loading = false;
         querySnapshot.forEach(doc => {
           const data = {
-            slide_id: doc.data().slide_id,
-            name: doc.data().name,
-            text: doc.data().text,
-            url: doc.data().url
+            category_id: doc.data().category_id,
+            name: doc.data().name
           };
-          this.slides.push(data);
+          this.categories.push(data);
         });
       });
   }

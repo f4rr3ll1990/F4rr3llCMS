@@ -1,7 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
+import Category from '@/components/Category';
 import Dashboard from '@/components/Dashboard';
+import DashboardCategories from '@/components/DashboardCategories';
+import EditCategory from '@/components/EditCategory';
 import ViewPost from '@/components/ViewPost';
 import NewPost from '@/components/NewPost';
 import EditPost from '@/components/EditPost';
@@ -10,6 +13,7 @@ import Register from '@/components/Register';
 import SliderEdit from '@/components/SliderEdit';
 import NewSlide from '@/components/NewSlide';
 import EditSlide from '@/components/EditSlide';
+import NewCategory from '@/components/NewCategory';
 import firebase from 'firebase';
 
 Vue.use(Router);
@@ -28,6 +32,22 @@ let router = new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/dashboard-categories',
+      name: 'DashboardCategories',
+      component: DashboardCategories,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/new-category',
+      name: 'new-category',
+      component: NewCategory,
       meta: {
         requiresAuth: true
       }
@@ -81,7 +101,23 @@ let router = new Router({
       }
     },
     {
-      path: '/:post_id',
+      path: '/edit-category/:category_id',
+      name: 'edit-category',
+      component: EditCategory,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/:category_id',
+      name: 'category',
+      component: Category,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/:category_id/:post_id',
       name: 'view-post',
       component: ViewPost,
       meta: {

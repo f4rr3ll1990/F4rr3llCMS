@@ -10,9 +10,14 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <router-link to="/" class="nav-link" href="/">Главная</router-link>
-            </li>            
-            <li class="nav-item" v-if="isLoggedIn"><router-link class="nav-link" to="/dashboard">Админ паннель</router-link></li>
-            <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/login">Воийти</router-link></li>
+            </li>  
+            <div v-for="cat in categories" v-bind:key="cat.category_id">
+            <li class="nav-item">
+              <router-link v-bind:to="{ name: 'category', params: { category_id: cat.category_id}}" class="nav-link" >{{ cat.name }}</router-link>
+            </li>  
+            </div>
+            <li class="nav-item" v-if="isLoggedIn"><router-link class="nav-link" to="/dashboard">Управление</router-link></li>
+            <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/login">Вход</router-link></li>
             <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/register">Регистрация</router-link></li>
             <li class="nav-item dropdown" v-if="isLoggedIn">
               <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,19 +36,36 @@
 
 <script>
 import firebase from "firebase";
+import { db } from "./firebaseInit";
+
 export default {
   name: "navbar",
   data() {
     return {
       isLoggedIn: false,
+      categories: [],
       currentUser: false
     };
   },
-  created() {
+  created: function() {
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
       this.currentUser = firebase.auth().currentUser.email;
     }
+    
+    db
+      .collection("categories")
+      .get()
+      .then(querySnapshot => {
+        // this.loading = false;
+        querySnapshot.forEach(doc => {
+          const data = {
+            category_id: doc.data().category_id,
+            name: doc.data().name
+          };
+          this.categories.push(data);        
+        });
+      });
   },
   methods: {
     logout: function(e) {

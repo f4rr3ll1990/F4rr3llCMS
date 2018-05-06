@@ -5,18 +5,18 @@
                 <div class="row">
                     <ul class="list-unstyled mb-0">
                         <li>
-                            <router-link to="/slideredit" class="btn">
-                                <i class="fa fa-archive"></i> Слайдер
-                            </router-link>
-                        </li>
-                        <li>
                             <router-link to="/dashboard" class="btn">
                                 <i class="fa fa-list"></i> Список постов
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/new" class="btn">
-                                <i class="fa fa-plus"></i> Добавить пост
+                            <router-link to="/dashboard-categories" class="btn">
+                                <i class="fa fa-archive"></i> Категории
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/slideredit" class="btn">
+                                <i class="fa fa-archive"></i> Слайдер
                             </router-link>
                         </li>
                     </ul>           

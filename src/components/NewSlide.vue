@@ -1,5 +1,5 @@
 <template>
-  <div id="newslide">
+  <div id="newslide" class="container">
     <h3>New Slide</h3>
     <div class="row">
     <form @submit.prevent="saveSlide" class="col s12">
