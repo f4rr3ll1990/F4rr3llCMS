@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <div id="view-post" class="row">
+  <div id="view-post" class="row" v-show="showPage">
     <div class="col-sm-12">
       <img class="img-fluid" v-if="url" :src="url" :alt="name">
       <h4>{{name}}</h4>
@@ -15,11 +15,12 @@
 </template>
 
 <script>
-import { db } from './firebaseInit';
+import { db } from '@/components/firebaseInit';
 export default {
   name: 'view-post',
   data() {
     return {
+      showPage: false,
       post_id: null,
       name: null,
       text: null,
@@ -27,6 +28,7 @@ export default {
     };
   },
   beforeRouteEnter(to, from, next) {
+    NProgress.start();
     db
       .collection('posts')
       .where('post_id', '==', to.params.post_id)
@@ -38,6 +40,8 @@ export default {
             vm.name = doc.data().name;
             vm.text = doc.data().text;
             vm.url = doc.data().url;
+            vm.showPage = true;
+            NProgress.done();
           });
         });
       });

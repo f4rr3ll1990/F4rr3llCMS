@@ -1,34 +1,24 @@
 <template>
   <div id="app">
     <Navbar />
+    <transition name="fade" appear>
       <router-view/>
+    </transition>
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar';
-import NewPost from './components/NewPost';
+import Navbar from '@/components/Navbar';
 
 export default {
   name: 'app',
   components: {
-    Navbar,
-    NewPost
+    Navbar
   }
 };
 </script>
 
 <style>
-
-body {
-  padding-top: 54px;
-}
-
-@media (min-width: 992px) {
-  body {
-    padding-top: 56px;
-  }
-}
 
 .carousel-item {
   height: 65vh;
@@ -47,5 +37,16 @@ body {
   position: fixed;
   bottom: -4px;
   right: 10px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+.fade-enter-active {
+  transition-delay: .25s;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
 }
 </style>

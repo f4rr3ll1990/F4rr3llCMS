@@ -37,8 +37,8 @@
 </template>
 
 <script>
-    import { db } from './firebaseInit'
-    import FileUploader from './FileUploader'
+    import { db } from '@/components/firebaseInit'
+    import FileUploader from '@/elements/dashboard/FileUploader'
     import translit from 'cyrillic-to-translit-js'
 
     export default {
@@ -79,4 +79,4 @@
       }
     }
 </script>
-<style src="../../node_modules/vue-wysiwyg/dist/vueWysiwyg.css"></style>
+<style src="../../../node_modules/vue-wysiwyg/dist/vueWysiwyg.css"></style>

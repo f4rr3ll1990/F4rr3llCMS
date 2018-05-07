@@ -35,8 +35,8 @@
 </template>
 
 <script>
-    import { db } from './firebaseInit'
-    import FileUploader from './FileUploader'
+    import { db } from '@/components/firebaseInit'
+    import FileUploader from '@/elements/dashboard/FileUploader'
 
     export default {
       name: 'newslide',

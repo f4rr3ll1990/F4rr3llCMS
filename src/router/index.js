@@ -1,20 +1,24 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
-import Category from '@/components/Category';
-import Dashboard from '@/components/Dashboard';
-import DashboardCategories from '@/components/DashboardCategories';
-import EditCategory from '@/components/EditCategory';
-import ViewPost from '@/components/ViewPost';
-import NewPost from '@/components/NewPost';
-import EditPost from '@/components/EditPost';
-import Login from '@/components/Login';
-import Register from '@/components/Register';
-import SliderEdit from '@/components/SliderEdit';
-import NewSlide from '@/components/NewSlide';
-import EditSlide from '@/components/EditSlide';
-import NewCategory from '@/components/NewCategory';
 import firebase from 'firebase';
+
+
+import Home from '@/pages/client/Home';
+import Category from '@/pages/client/Category';
+import ViewPost from '@/pages/client/ViewPost';
+import Login from '@/pages/client/Login';
+import Register from '@/pages/client/Register';
+
+import Dashboard from '@/pages/dashboard/Dashboard';
+import DashboardCategories from '@/pages/dashboard/DashboardCategories';
+import EditCategory from '@/pages/dashboard/EditCategory';
+import NewPost from '@/pages/dashboard/NewPost';
+import EditPost from '@/pages/dashboard/EditPost';
+import SliderEdit from '@/pages/dashboard/SliderEdit';
+import NewSlide from '@/pages/dashboard/NewSlide';
+import EditSlide from '@/pages/dashboard/EditSlide';
+import NewCategory from '@/pages/dashboard/NewCategory';
+
 
 Vue.use(Router);
 

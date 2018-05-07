@@ -1,38 +1,30 @@
 <template>
-
-  <div class="container">
-    <div id="category" class="row" >
-      <div class="col-lg-4 col-sm-6 portfolio-item" v-for="post in posts" v-bind:key="post.post_id">
-        <div class="card h-100">
-          <router-link v-bind:to="{ name: 'view-post', params: { category_id: post.category_id, post_id: post.post_id }}">
-            <img class="card-img-top" :src="post.url" alt="">
-          </router-link>
-          <div class="card-body">
-            <h4 class="card-title">
-              <router-link v-bind:to="{ name: 'view-post', params: { category_id: post.category_id, post_id: post.post_id }}">
-                {{post.name}}
-              </router-link>
-            </h4>
-            <p class="card-text" v-html="post.text"></p>
-          </div>
-        </div>
+  <div id="category">
+    <article class="container" v-show="showPage">
+      <div class="row article-row">
+        <post-card v-for="post in posts" :key="post.post_id" :post="post" />
       </div>
-    </div>
+    </article>
   </div>
-
 </template>
 
 <script>
-import { db } from "./firebaseInit";
+import { db } from "@/components/firebaseInit";
+import PostCard from '@/elements/client/PostCard'
 
 export default {
   name: "category",
+  components: {
+    PostCard
+  },
   data() {
     return {
-      posts: []
+      posts: [],
+      showPage: false
     };
   },
   created() {
+    NProgress.start();
     db
       .collection("posts")
       .where('category_id', '==', this.$route.params.category_id)
@@ -48,6 +40,8 @@ export default {
             url: doc.data().url
           };
           this.posts.push(data);
+          this.showPage = true;
+          NProgress.done();
         });
       });
 
@@ -56,6 +50,8 @@ export default {
   },
   methods: {
       fetchData() {
+        this.showPage = false;
+        NProgress.start();
         this.posts = [];
         db
         .collection("posts")
@@ -72,6 +68,8 @@ export default {
                 url: doc.data().url
             };
             this.posts.push(data);
+            this.showPage = true;
+            NProgress.done();
             });
         });
       }
@@ -83,5 +81,7 @@ export default {
 };
 </script>
 <style scoped>
-
+  .article-row {
+    padding-top: 30px;
+  }
 </style>

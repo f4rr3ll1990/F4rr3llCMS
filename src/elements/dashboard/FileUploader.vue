@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { storage } from './firebaseInit'
+import { storage } from '@/components/firebaseInit'
 export default {
   data () {
     return {

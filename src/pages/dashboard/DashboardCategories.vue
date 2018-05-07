@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import { db } from "./firebaseInit";
-import DashSidebar from "./DashSidebar";
+import { db } from "@/components/firebaseInit";
+import DashSidebar from "@/elements/dashboard/DashSidebar";
 export default {
   name: "dashboard-categories",
   components: {

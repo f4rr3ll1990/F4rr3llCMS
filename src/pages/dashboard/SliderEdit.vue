@@ -1,14 +1,13 @@
 <template>
 <div class="container">
-  <div id="dashboard" class="row">
+  <div id="slideredit" class="row">
     <div class="col-sm-10">
-        <router-link to="/new" class="btn">
-            <i class="fa fa-plus"></i> Создать пост
+        <router-link to="/newslide" class="btn">
+            <i class="fa fa-plus"></i> Создать слайд
         </router-link>
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Text</th>
                 <th scope="col">Image</th>
@@ -16,21 +15,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="post in posts" v-bind:key="post.id">
+                <tr v-for="slide in slides" v-bind:key="slide.slide_id">
                     <td>
-                        {{post.post_id}}
+                        {{slide.name}}
                     </td>
                     <td>
-                        {{post.name}}
+                        {{slide.text}}
                     </td>
                     <td>
-                        {{post.text}}
+                        <img class="img-fluid" :src="slide.url" alt="">
                     </td>
                     <td>
-                        <img class="img-fluid" :src="post.url" alt="">
-                    </td>
-                    <td>
-                        <router-link v-bind:to="{ name: 'edit-post', params: { post_id: post.post_id }}" class="btn">
+                        <router-link v-bind:to="{ name: 'editslide', params: { slide_id: slide.slide_id }}" class="btn">
                             <i class="fa fa-pencil"></i>
                         </router-link>
                     </td>
@@ -44,34 +40,33 @@
 </template>
 
 <script>
-import { db } from "./firebaseInit";
-import DashSidebar from "./DashSidebar";
+import { db } from "@/components/firebaseInit";
+import DashSidebar from "@/elements/dashboard/DashSidebar";
 export default {
-  name: "dashboard",
+  name: "slideredit",
   components: {
       DashSidebar
   },
   data() {
     return {
-      posts: [],
+      slides: [],
       loading: true
     };
   },
   created() {
     db
-      .collection("posts")
+      .collection("slides")
       .get()
       .then(querySnapshot => {
         this.loading = false;
         querySnapshot.forEach(doc => {
           const data = {
-            id: doc.id,
-            post_id: doc.data().post_id,
+            slide_id: doc.data().slide_id,
             name: doc.data().name,
             text: doc.data().text,
             url: doc.data().url
           };
-          this.posts.push(data);
+          this.slides.push(data);
         });
       });
   }
@@ -79,7 +74,5 @@ export default {
 </script>
 
 <style scoped>
-    .img-fluid {
-        max-height: 10vh;
-    }
+
 </style>

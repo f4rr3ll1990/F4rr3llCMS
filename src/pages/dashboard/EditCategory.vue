@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import { db } from './firebaseInit'
+  import { db } from '@/components/firebaseInit'
   import translit from 'cyrillic-to-translit-js'
 
   export default {

@@ -1,39 +1,27 @@
 <template>
-<div>
+<div id="home">
   <carousel :scrollPerPage="true" :perPageCustom="[[480, 1]]" v-if="showSlider">
     <slide v-for="slide in slides" v-bind:key="slide.id" v-bind:style="{ backgroundImage: 'url(' + slide.url + ')' }" />
   </carousel>
-  <div class="container">
-    <div id="home" class="row" v-show="showPage">
-      <div class="col-lg-4 col-sm-6 portfolio-item" v-for="post in posts" v-bind:key="post.post_id">
-        <div class="card h-100">
-          <router-link v-bind:to="{ name: 'view-post', params: { category_id: post.category_id, post_id: post.post_id }}">
-            <img class="card-img-top" :src="post.url" alt="">
-          </router-link>
-          <div class="card-body">
-            <h4 class="card-title">
-              <router-link v-bind:to="{ name: 'view-post', params: { category_id: post.category_id, post_id: post.post_id }}">
-                {{post.name}}
-              </router-link>
-            </h4>
-            <p class="card-text" v-html="post.text"></p>
-          </div>
-        </div>
-      </div>
+  <article class="container" v-show="showPage">
+    <div class="row article-row">
+      <post-card v-for="post in posts" :key="post.post_id" :post="post" />
     </div>
-  </div>
+  </article>
 </div>
 </template>
 
 <script>
-import { db } from "./firebaseInit";
+import { db } from "@/components/firebaseInit";
 import { Carousel, Slide } from "vue-carousel";
+import PostCard from '@/elements/client/PostCard'
 
 export default {
   name: "home",
   components: {
     Carousel,
-    Slide
+    Slide,
+    PostCard
   },
   data() {
     return {
@@ -101,7 +89,7 @@ export default {
 </script>
 <style scoped>
 .VueCarousel-slide {
-  height: 25vh;
+  min-height: 50px;
   background-size: cover;
   background-position: center;
 }
