@@ -12,6 +12,20 @@
       </div>
       <div class="row">
         <div class="input-field col-sm-12">
+          <input type="text" v-model="description" />
+          <label>Description</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col-sm-12">
+          <select name="category" v-model="category_id">
+            <option v-for="cat in categories" :key="cat.category_id" :value="cat.category_id">{{ cat.name }}</option>
+          </select>
+          <label>Category</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col-sm-12">
           <wysiwyg v-model="text" />
           <label>Text</label>
         </div>
@@ -48,11 +62,29 @@
       },
       data () {
         return {
+          categories: [],
           post_id: null,
+          category_id: null,
           name: null,
+          description: null,
           text: null,
-          url: false
+          url: false,
+          date: null
         }
+      },
+      created() {
+        db
+          .collection("categories")
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              const data = {
+                category_id: doc.data().category_id,
+                name: doc.data().name
+              };
+              this.categories.push(data);
+            });
+          });
       },
       methods: {
         getUrl (url) {
@@ -64,9 +96,12 @@
         savePost () {
           db.collection('posts').add({
             post_id: this.post_id,
+            category_id: this.category_id,
             name: this.name,
+            description: this.description,
             text: this.text,
-            url: this.url
+            url: this.url,
+            date: Date.now()
           })
           .then(docRef => {
             console.log('Client added: ', docRef.post_id)

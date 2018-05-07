@@ -53,7 +53,6 @@ export default {
       .collection("categories")
       .get()
       .then(querySnapshot => {
-        this.loading = false;
         querySnapshot.forEach(doc => {
           const data = {
             category_id: doc.data().category_id,

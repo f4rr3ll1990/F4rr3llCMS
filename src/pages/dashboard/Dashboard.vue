@@ -24,7 +24,7 @@
                         {{post.name}}
                     </td>
                     <td>
-                        {{post.text}}
+                        {{post.description}}
                     </td>
                     <td>
                         <img class="img-fluid" :src="post.url" alt="">
@@ -68,7 +68,7 @@ export default {
             id: doc.id,
             post_id: doc.data().post_id,
             name: doc.data().name,
-            text: doc.data().text,
+            description: doc.data().description,
             url: doc.data().url
           };
           this.posts.push(data);

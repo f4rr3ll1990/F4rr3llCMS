@@ -8,18 +8,20 @@ import '@/components/firebaseInit';
 import wysiwyg from "vue-wysiwyg";
 
 Vue.use(wysiwyg, {}); // config is optional. more below
-
+Vue.use(require('vue-moment'));
 Vue.config.productionTip = false;
 
 let app;
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
   if (!app) {
     /* eslint-disable no-new */
     app = new Vue({
       el: '#app',
       router,
       template: '<App/>',
-      components: { App }
+      components: {
+        App
+      }
     });
   }
 });

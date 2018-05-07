@@ -10,6 +10,19 @@
       </div>
       <div class="row">
         <div class="input-group col-sm-12">
+          <input type="text" v-model="description" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col-sm-12">
+          <select name="category" v-model="category_id">
+            <option v-for="cat in categories" :key="cat.category_id" :value="cat.category_id">{{ cat.name }}</option>
+          </select>
+          <label>Category</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group col-sm-12">
           <wysiwyg v-model="text" />
         </div>
       </div>
@@ -46,8 +59,11 @@
     },
     data () {
       return {
+        categories: [],
         post_id: null,
+        category_id: null,
         name: null,
+        description: null,
         text: null,
         url: null
       }
@@ -58,11 +74,27 @@
           next(vm => {
             vm.post_id = doc.data().post_id
             vm.name = doc.data().name
+            vm.category_id = doc.data().category_id
+            vm.description = doc.data().description
             vm.text = doc.data().text
             vm.url = doc.data().url
           })
         })
-      })
+      });
+    },
+    created() {
+      db
+        .collection("categories")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const data = {
+              category_id: doc.data().category_id,
+              name: doc.data().name
+            };
+            this.categories.push(data);
+          });
+        });
     },
     watch: {
       '$route': 'fetchData'
@@ -72,7 +104,9 @@
         db.collection('posts').where('post_id', '==', this.$route.params.post_id).get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.post_id = doc.data().post_id
+            this.category_id = doc.data().category_id
             this.name = doc.data().name
+            this.description = doc.data().description
             this.text = doc.data().text
             this.url = doc.data().url
           })
@@ -90,8 +124,11 @@
             doc.ref.update({
               post_id: this.post_id,
               name: this.name,
+              category_id: this.category_id,
+              description: this.description,
               text: this.text,
-              url: this.url
+              url: this.url,
+              date: Date.now()
             })
             .then(() => {
               this.$router.push({ name: 'view-post', params: { post_id: this.post_id }})

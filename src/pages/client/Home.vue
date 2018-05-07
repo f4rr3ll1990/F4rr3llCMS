@@ -46,8 +46,9 @@ export default {
             post_id: doc.data().post_id,
             category_id: doc.data().category_id,
             name: doc.data().name,
-            text: doc.data().text,
-            url: doc.data().url
+            description: doc.data().description,
+            url: doc.data().url,
+            date: doc.data().date
           };
           this.posts.push(data);
 

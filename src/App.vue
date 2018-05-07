@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar';
+import Navbar from "@/components/Navbar";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Navbar
   }
@@ -19,7 +19,6 @@ export default {
 </script>
 
 <style>
-
 .carousel-item {
   height: 65vh;
   min-height: 300px;
@@ -39,14 +38,16 @@ export default {
   right: 10px;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition-property: opacity;
-  transition-duration: .25s;
+  transition-duration: 0.25s;
 }
 .fade-enter-active {
-  transition-delay: .25s;
+  transition-delay: 0.25s;
 }
-.fade-enter, .fade-leave-active {
+.fade-enter,
+.fade-leave-active {
   opacity: 0;
 }
 </style>

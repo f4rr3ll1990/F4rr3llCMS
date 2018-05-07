@@ -1,17 +1,12 @@
 <template>
-<div class="container">
-  <div id="view-post" class="row" v-show="showPage">
-    <div class="col-sm-12">
-      <img class="img-fluid" v-if="url" :src="url" :alt="name">
-      <h4>{{name}}</h4>
-      <p v-html="text"></p>
+  <article id="view-post" class="container" v-show="showPage">
+    <h1>{{ name }}</h1>
+    <img class="img-fluid" v-if="url" :src="url" :alt="name">
+    <p class="post-body" v-html="text"></p>
+    <div class="row justify-content-around">
+      <a @click="$router.go(-1)" class="btn btn-outline-primary back-link" tag="button"><i class="fa fa-arrow-circle-left"></i> Назад</a>
     </div>
-
-    <a @click="$router.go(-1)" class="btn">Back</a>
-    
-
-  </div>
-</div>
+  </article> 
 </template>
 
 <script>
@@ -67,3 +62,22 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.post-body {
+    font-weight: 400;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+    font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: left;
+    display: block;
+    font-size: 1.2em;
+    color: #35495e;
+}
+.back-link:hover {
+  color: white !important;
+  background-color: rgba(0, 123, 255, 0.726);
+}
+</style>

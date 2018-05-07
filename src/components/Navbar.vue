@@ -7,14 +7,14 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <router-link :to="'/'" tag="a" class="nav-link">Главная</router-link>
       </li>
       <li class="nav-item" v-for="cat in categories" v-bind:key="cat.category_id">
         <router-link v-bind:to="{ name: 'category', params: { category_id: cat.category_id}}" class="nav-link" >{{ cat.name }}</router-link>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto navigation-right">
       <li class="nav-item" v-if="isLoggedIn"><router-link class="nav-link" to="/dashboard">Управление</router-link></li>
       <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/login">Вход</router-link></li>
       <li class="nav-item" v-if="!isLoggedIn"><router-link class="nav-link" to="/register">Регистрация</router-link></li>
@@ -84,7 +84,13 @@ export default {
 .logo {
   max-height: 30px; 
 }
+.navigation-right {
+  padding-right: 50px;
+}
 .nav-link {
   color: #fff !important;
+}
+.nav-item .router-link-exact-active {
+  color: rgba(255, 255, 255, 0.651) !important;
 }
 </style>
