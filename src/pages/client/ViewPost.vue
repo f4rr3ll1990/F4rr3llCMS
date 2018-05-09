@@ -1,5 +1,5 @@
 <template>
-  <article id="view-post" class="container" v-show="showPage">
+  <article id="view-post" class="container" >
     <h1>{{ name }}</h1>
     <img class="img-fluid" v-if="url" :src="url" :alt="name">
     <p class="post-body" v-html="text"></p>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+const _ = require('lodash');
 import { db } from '@/components/firebaseInit';
 export default {
   name: 'view-post',
@@ -22,42 +23,16 @@ export default {
       url: false
     };
   },
-  beforeRouteEnter(to, from, next) {
-    NProgress.start();
-    db
-      .collection('posts')
-      .where('post_id', '==', to.params.post_id)
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          next(vm => {
-            vm.post_id = doc.data().post_id;
-            vm.name = doc.data().name;
-            vm.text = doc.data().text;
-            vm.url = doc.data().url;
-            vm.showPage = true;
-            NProgress.done();
-          });
-        });
-      });
-  },
-  watch: {
-    $route: 'fetchData'
+  created() {
+    this.fetchData();
   },
   methods: {
     fetchData() {
-      db
-        .collection('posts')
-        .where('post_id', '==', to.params.post_id)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.post_id = doc.data().post_id;
-            this.name = doc.data().name;
-            this.text = doc.data().text;
-            this.url = doc.data().url;
-          });
-        });
+      let post = _.find(this.$store.state.posts, {post_id: this.$route.params.post_id}) || null;
+      this.post_id = post.post_id;
+      this.name = post.name;
+      this.text = post.text;
+      this.url = post.url;
     }
   }
 };

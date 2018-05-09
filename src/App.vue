@@ -14,6 +14,9 @@ export default {
   name: "app",
   components: {
     Navbar
+  },
+  created() {        
+
   }
 };
 </script>
