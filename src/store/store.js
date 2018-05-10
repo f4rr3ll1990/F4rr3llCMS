@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   state : {
     loaded: false,
     posts: [],
-    slides: []
+    slides: [],
   },
   mutations : {
     setPosts: function (state, data) {

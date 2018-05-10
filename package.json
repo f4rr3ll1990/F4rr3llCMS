@@ -17,6 +17,7 @@
     "lodash": "^4.17.10",
     "vue": "^2.5.2",
     "vue-carousel": "^0.7.3",
+    "vue-lazyload": "^1.2.3",
     "vue-moment": "^3.2.0",
     "vue-router": "^3.0.1",
     "vue-wysiwyg": "^1.7.0",

@@ -2,7 +2,7 @@
     <div class="col-sm-4 post">
         <div class="post-wrap">
             <router-link v-bind:to="{ name: 'view-post', params: { category_id: post.category_id, post_id: post.post_id }}">
-                <img class="img-fluid" :src="post.url" :alt="post.name">
+                <img class="img-fluid" v-lazy="post.url" :alt="post.name">
                 <h3>{{ post.name }}</h3>
                 <p>{{ post.description }}</p>
                 <span>{{ post.date | moment("dddd, DD MMMM YY HH:mm Z") }}</span>

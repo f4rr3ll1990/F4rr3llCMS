@@ -1,7 +1,12 @@
 <template>
 <div id="home">
   <carousel :scrollPerPage="true" :perPageCustom="[[480, 1]]" v-if="loaded" >
-    <slide v-for="slide in slides" v-bind:key="slide.id" v-bind:style="{ backgroundImage: 'url(' + slide.url + ')' }" />
+    <slide class="home-slide" v-for="slide in slides" v-bind:key="slide.id" v-lazy:background-image="slide.url">
+      <div class="slide-inner">
+        <h2 class="slide-head">{{ slide.name }}</h2>
+        <p class="slide-text">{{ slide.text }}</p>
+      </div>
+    </slide>
   </carousel>
   <article class="container" v-if="loaded">
     <div class="row article-row">
@@ -38,8 +43,25 @@ export default {
 </script>
 <style scoped>
 .VueCarousel-slide {
-  min-height: 50px;
+  height: 40vh;
   background-size: cover;
   background-position: center;
+}
+ .home-slide[lazy=loading] {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+.slide-inner {
+  margin-top: 6%;
+  margin-left: 3%;
+  color: rgb(224, 223, 223);
+  font-family: 'Marmelad', sans-serif;
+}
+.slide-head {
+  font-size: 4em;
+}
+
+article {
+  margin-top: 50px;
 }
 </style>

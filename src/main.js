@@ -8,12 +8,18 @@ import firebase from 'firebase';
 import '@/components/firebaseInit';
 import wysiwyg from "vue-wysiwyg";
 import moment from 'vue-moment'
-
-
+import VueLazyload from 'vue-lazyload'
 
 
 Vue.use(wysiwyg, {});
 Vue.use(moment);
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  loading: 'src/assets/loading.gif',
+  attempt: 1
+});
+
+
 Vue.config.productionTip = false;
 
 let app;

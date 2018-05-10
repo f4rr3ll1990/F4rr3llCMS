@@ -19,6 +19,9 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #F7F7F7;
+}
 .carousel-item {
   height: 65vh;
   min-height: 300px;
@@ -50,4 +53,5 @@ export default {
 .fade-leave-active {
   opacity: 0;
 }
+
 </style>
