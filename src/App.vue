@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar />
     <transition name="fade" appear>
-      <router-view/>
+      <router-view />
     </transition>
   </div>
 </template>

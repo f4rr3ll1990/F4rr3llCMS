@@ -11,7 +11,7 @@
 <script>
 import { db } from "@/components/firebaseInit";
 import PostCard from '@/elements/client/PostCard'
-const _ = require('lodash');
+
 
 export default {
   name: "category",
@@ -20,9 +20,10 @@ export default {
   },
   computed: {
     posts() {
-      let state = this.$store.state.posts;
-      let filterposts = _.filter(state, {category_id: this.$route.params.category_id}) || null;
-      return filterposts;
+      return this.$store.getters.categoryPosts(this.$route.params.category_id);
+      // let state = this.$store.state.posts;
+      // let filterposts = _.filter(state, {category_id: this.$route.params.category_id}) || null;
+      // return filterposts;
     }
   }
 };

@@ -1,20 +1,32 @@
 import Vue from  'vue'
 import Vuex from 'vuex'
 import { db } from "@/components/firebaseInit"
-
+const _ = require('lodash');
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state : {
+    loading: true,
     posts: [],
     slides: []
   },
   mutations : {
+    setLoading: function (state) {
+      state.loading = !state.loading;
+    },
     setPosts: function (state, data) {
       state.posts.push(data);
     },
     setSlides: function (state, data) {
       state.slides.push(data);
+    }
+  },
+  getters : {
+    categoryPosts: state => (id) => {
+      return _.filter(state.posts, {category_id: id}) || null;
+    },
+    singlePost: state => (id) => {
+      return _.find(state.posts, {post_id: id}) || null;
     }
   },
   created() {        
@@ -61,7 +73,10 @@ const store = new Vuex.Store({
         });
       }
       Promise.all([fetchPosts(), fetchSlides()])
-      .then(NProgress.done());      
+      .then( () => {
+        commit('setLoading');
+        NProgress.done();
+      });      
     } // Fetch Data
   }
 });
