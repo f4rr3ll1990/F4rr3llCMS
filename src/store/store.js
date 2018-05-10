@@ -17,10 +17,13 @@ const store = new Vuex.Store({
       state.slides.push(data);
     }
   },
+  created() {        
+    NProgress.start();
+  },
   actions : {
-    fetchData ({ commit }) {      
-      NProgress.start();
+    fetchData ({ commit }) {
       console.log('Fetching data');
+      async function fetchPosts() {
         db
         .collection("posts")
         .get()
@@ -39,6 +42,8 @@ const store = new Vuex.Store({
             commit('setPosts', data );
           });
         });
+      }
+      async function fetchSlides() {
         db
         .collection("slides")
         .get()
@@ -54,8 +59,10 @@ const store = new Vuex.Store({
             commit('setSlides', data );
           });
         });
-      NProgress.done();
-    } // Fetsch Data
+      }
+      Promise.all([fetchPosts(), fetchSlides()])
+      .then(NProgress.done());      
+    } // Fetch Data
   }
 });
 

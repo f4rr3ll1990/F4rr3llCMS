@@ -105,7 +105,7 @@
           })
           .then(docRef => {
             console.log('Client added: ', docRef.post_id)
-            this.$router.push('/')
+            this.$router.push('/dashboard')
           })
           .catch(error => {
             console.error('Error adding post: ', error)

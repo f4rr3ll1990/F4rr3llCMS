@@ -141,6 +141,7 @@ let router = new Router({
 
 // Nav Guard
 router.beforeEach((to, from, next) => {
+  NProgress.start();
   // Check for requiresAuth guard
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Check if NO logged user
@@ -174,6 +175,9 @@ router.beforeEach((to, from, next) => {
     // Proceed to route
     next();
   }
+});
+router.afterEach((to, from, next) => {
+  NProgress.done();
 });
 
 export default router;

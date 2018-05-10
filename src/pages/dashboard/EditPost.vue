@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <div id="edit-post">
     <h3>Edit Post</h3>
     <div class="row">
@@ -6,11 +7,13 @@
       <div class="row">
         <div class="input-group col-sm-12">
           <input type="text" v-model="name" v-on:keyup="translitFunc()" />
+          <label>Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-group col-sm-12">
           <input type="text" v-model="description" />
+          <label>Description</label>
         </div>
       </div>
       <div class="row">
@@ -35,6 +38,7 @@
       <div class="row">
         <div class="input-group col-sm-12">
           <input type="text" v-model="post_id" />
+          <label>Post URL#</label>
         </div>
       </div>
       <button type="submit" class="btn">Submit</button>
@@ -45,6 +49,7 @@
     </div>
   </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -131,7 +136,7 @@
               date: Date.now()
             })
             .then(() => {
-              this.$router.push({ name: 'view-post', params: { post_id: this.post_id }})
+              this.$router.push({ name: 'view-post', params: { category_id: this.category_id, post_id: this.post_id }})
             });
           })
         })
@@ -145,7 +150,7 @@
             .then(querySnapshot => {
               querySnapshot.forEach(doc => {
                 doc.ref.delete();
-                this.$router.push('/');
+                this.$router.push('/dashboard');
               });
             });
         }
