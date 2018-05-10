@@ -1,24 +1,25 @@
 import Vue from  'vue'
 import Vuex from 'vuex'
-import { db } from "@/components/firebaseInit"
-const _ = require('lodash');
+import { db } from '@/components/firebaseInit'
+import _ from 'lodash'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state : {
-    loading: true,
+    loaded: false,
     posts: [],
     slides: []
   },
   mutations : {
-    setLoading: function (state) {
-      state.loading = !state.loading;
-    },
     setPosts: function (state, data) {
       state.posts.push(data);
     },
     setSlides: function (state, data) {
       state.slides.push(data);
+    },
+    setLoading: function (state) {
+      state.loaded = !state.loaded;
     }
   },
   getters : {

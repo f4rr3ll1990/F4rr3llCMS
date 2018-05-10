@@ -1,5 +1,5 @@
 <template>
-  <article id="view-post" class="container" >
+  <article id="view-post" class="container" v-if="post">
     <h1>{{ post.name }}</h1>
     <img class="img-fluid" v-if="post.url" :src="post.url" :alt="post.name">
     <p class="post-body" v-html="post.text"></p>
@@ -10,16 +10,13 @@
 </template>
 
 <script>
-const _ = require('lodash');
-import { db } from '@/components/firebaseInit';
+import { db } from '@/components/firebaseInit'
+
 export default {
   name: 'view-post',
   computed: {
     post() {
       return this.$store.getters.singlePost(this.$route.params.post_id);
-    },
-    loading() {
-      return this.$store.state.loading
     }
   }
 };

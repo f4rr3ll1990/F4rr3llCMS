@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { db } from "@/components/firebaseInit";
+import { db } from '@/components/firebaseInit'
 import PostCard from '@/elements/client/PostCard'
 
 
